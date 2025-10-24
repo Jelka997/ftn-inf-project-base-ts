@@ -50,7 +50,21 @@ function renderData(): void {
                 cell6.appendChild(editButton)
                 newRow.appendChild(cell6)
 
-                table.appendChild(newRow)
+                const cell7 = document.createElement('td');
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Obrisi';
+                deleteButton.onclick = function () {
+                    userService.deleteUser(userid.toString())
+                        .then(() => {
+                            window.location.reload();
+                        })
+                        .catch(error => {
+                            console.error(error.status, error.text);
+                        });
+                };
+                cell7.appendChild(deleteButton);
+                newRow.appendChild(cell7);
+                table.appendChild(newRow);
             }
         })
         .catch(error => {
