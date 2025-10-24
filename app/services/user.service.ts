@@ -1,4 +1,5 @@
 import { User } from "../model/user.model";
+import { UserFormData } from "../model/userForm.model";
 
 export class UserService {
     private apiUrl: string;
@@ -19,6 +20,46 @@ export class UserService {
             })
             .then((users: User[]) => {
                 return users;
+            })
+            .catch(error => {
+                console.error('Error:', error.status)
+                throw error
+            });
+    }
+    getById(id: string): Promise<User> {
+        return fetch(`${this.apiUrl}/${id}`)
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(errorMessage => {
+                        throw { status: response.status, message: errorMessage }
+                    })
+                }
+                return response.json();
+            }).then((user: User) => {
+                return user;
+            }).catch(error => {
+                console.error('Error:', error.status)
+                throw error
+            });
+    }
+
+
+    add(formData: UserFormData): Promise<User> {
+        return fetch(this.apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(errorMessage => {
+                        throw { status: response.status, message: errorMessage }
+                    })
+                }
+                return response.json()
+            })
+            .then((user: User) => {
+                return user;
             })
             .catch(error => {
                 console.error('Error:', error.status)
