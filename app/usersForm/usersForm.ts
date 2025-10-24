@@ -34,12 +34,24 @@ function submit() {
     }
 
     const formData: UserFormData = { username, name, lastname, birthday }
-    userService.add(formData)
-        .then(() => {
-            window.location.href = '../index.html'
-        }).catch(error => {
-            console.error(error.status, error.text)
-        })
+    const queryString = window.location.search;
+    const urlparams = new URLSearchParams(queryString);
+    const id = urlparams.get('id');
+    if (id) {
+        userService.update(id, formData)
+            .then(() => {
+                window.location.href = '/index.html'
+            }).catch(error => {
+                console.error(error.status, error.text);
+            })
+    } else {
+        userService.add(formData)
+            .then(() => {
+                window.location.href = '/index.html'
+            }).catch(error => {
+                console.error(error.status, error.text)
+            })
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -51,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (buttonCancel) {
         buttonCancel.addEventListener("click", function () {
-            window.location.href = '../index.html'
+            window.location.href = '/index.html'
         })
     }
 })

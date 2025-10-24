@@ -45,7 +45,7 @@ function renderData(): void {
                 const editButton = document.createElement('button')
                 editButton.textContent = 'Izmeni'
                 editButton.addEventListener('click', function () {
-                    window.location.href = `../userForm/userForm.html?id=${userid}`
+                    window.location.href = `./usersForm/usersForm.html?id=${userid}`
                 });
                 cell6.appendChild(editButton)
                 newRow.appendChild(cell6)
