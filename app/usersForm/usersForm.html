@@ -23,10 +23,8 @@
         <form id="form">
             <label for="username">Korisnicko ime:</label>
             <input id="username" name="username" type="text" />
-            <!-- paragraf za poruku o grešci za naziv -->
             <span id="usernameError"></span>
             <br />
-
 
             <label for="name">Ime:</label>
             <input id="name" name="name" type="text" />
@@ -45,11 +43,15 @@
             <div class="actions">
                 <button id="submitBtn" type="button">Submit</button>
                 <div class="tooltip">
-            <span class="tooltiptext">Klikom na dugme podaci koje ste uneli ce se sacuvati u bazi.</span>
-        </div>
+                    <span class="tooltiptext">Klikom na dugme podaci koje ste uneli ce se sacuvati u bazi.</span>
+                </div>
                 <button id="cancelBtn" type="button">Cancel</button>
             </div>
         </form>
+        <p id="errorMessage" class="error"></p>
+        <div id="loadingSpinner" class="spinner hidden">
+            <img id="picture" src="https://discuss.wxpython.org/uploads/default/original/2X/6/6d0ec30d8b8f77ab999f765edd8866e8a97d59a3.gif" />
+        </div>
     </div>
 </body>
 

@@ -23,7 +23,13 @@ function initializeForm(): void {
 
 function submit() {
     const button = document.querySelector("#submitBtn") as HTMLButtonElement;
+    const spinner = document.querySelector("#loadingSpinner") as HTMLElement;
+    const errorMessage = document.querySelector("#errorMessage") as HTMLElement;
+    
     button.disabled = true;
+    errorMessage.textContent = "";
+    spinner.classList.remove("hidden");
+
     const username = (document.querySelector('#username') as HTMLInputElement).value
     const name = (document.querySelector('#name') as HTMLInputElement).value
     const lastname = (document.querySelector('#lastName') as HTMLInputElement).value
@@ -32,6 +38,7 @@ function submit() {
 
     if (!username || !name || !lastname || !birthday) {
         alert("All fields are required!");
+        spinner.classList.add("hidden");
         button.disabled = false;
         return
     }
@@ -50,8 +57,13 @@ function submit() {
     } else {
         userService.add(formData)
             .then(() => {
-                window.location.href = '/index.html'
+                setTimeout(() => {
+                    window.location.href = '/index.html';
+                    spinner.classList.remove("hidden");
+                }, 5000)
             }).catch(error => {
+                spinner.classList.remove("visible");
+                errorMessage.textContent = "Došlo je do greške prilikom dodavanja korisnika.";
                 console.error(error.status, error.text)
                 button.disabled = false;
             })
