@@ -22,6 +22,8 @@ function initializeForm(): void {
 }
 
 function submit() {
+    const button = document.querySelector("#submitBtn") as HTMLButtonElement;
+    button.disabled = true;
     const username = (document.querySelector('#username') as HTMLInputElement).value
     const name = (document.querySelector('#name') as HTMLInputElement).value
     const lastname = (document.querySelector('#lastName') as HTMLInputElement).value
@@ -30,6 +32,7 @@ function submit() {
 
     if (!username || !name || !lastname || !birthday) {
         alert("All fields are required!");
+        button.disabled = false;
         return
     }
 
@@ -50,13 +53,14 @@ function submit() {
                 window.location.href = '/index.html'
             }).catch(error => {
                 console.error(error.status, error.text)
+                button.disabled = false;
             })
     }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     initializeForm();
-    const button = document.querySelector("#submitBtn");
+    const button = document.querySelector("#submitBtn") as HTMLButtonElement;
     const buttonCancel = document.querySelector("#cancelBtn")
     if (button) {
         button.addEventListener("click", submit)
